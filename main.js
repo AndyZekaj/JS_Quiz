@@ -180,35 +180,41 @@ const questions = {
   ],
 };
 
-
 function runQuiz() {
   console.log(chalk.green.bold("Welcome to the JavaScript Quiz of Doom!"));
-  console.log(chalk.yellow("Type A, B, C, or D to answer the questions. Good luck!\n"));
+  console.log(
+    chalk.yellow("Type A, B, C, or D to answer the questions. Good luck!\n")
+  );
 
   let score = 0;
 
+  // iterates over the keys in "questions" object. Declaring temporary variable "topic" to iterate over the keys: question, option, answer
   for (const topic in questions) {
     console.log(chalk.blueBright(`--- Topic: ${topic.toUpperCase()} ---`));
+  
+  // iterates through the array of topic
     questions[topic].forEach((q, index) => {
-      console.log(`\n${chalk.bold(`Q${index + 1}:`)} ${q.question}`);
-      q.options.forEach((opt) => console.log(chalk.cyan(opt)));
+      console.log(`\n${chalk.bold(`Q${index + 1}:`)} ${q.question}`); // Displays question number
+      
+      q.options.forEach((opt) => console.log(chalk.cyan(opt))); // Array with the possible options
 
       let answer;
+
+  // makes sure that only a, b, c, d is allowed for inputs    
       do {
         answer = readline.question("Your answer: ").toUpperCase();
-      } while (!["A", "B", "C", "D"].includes(answer));
+      } while (!["A", "B", "C", "D"].includes(answer)); // if answer is not in the array, returns true, loop continues
 
       if (answer === q.answer) {
         console.log(chalk.green("Correct!"));
         score++;
       } else {
-        console.log(chalk.red(`Wrong! The correct answer was ${q.answer}.`));
+        console.log(chalk.red(`Nope! The correct answer was ${q.answer}.`));
       }
     });
   }
 
-  console.log(chalk.magentaBright(`\nYou completed the quiz! Your final score: ${score}`));
+  console.log(chalk.magentaBright(`\nYour final score: ${score}`));
 }
-
 
 runQuiz();
